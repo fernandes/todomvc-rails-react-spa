@@ -1,24 +1,32 @@
-# README
+# TodoMVC Rails React
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+todomvc.com example built using rails 5, [webpacker](https://github.com/rails/webpacker) and react.
 
-Things you may want to cover:
+## Development
 
-* Ruby version
+```
+bundle install
+cd vendor && yarn install && cd ..
+foreman start
+open http://localhost:5000/
+```
 
-* System dependencies
+If you wanna simulate a production environment compile the assets and run in production environment
 
-* Configuration
+```bash
+rake assets:precompile # will compile webpack too
+RAILS_SERVE_STATIC_FILES=true SECRET_KEY_BASE="secretkey" RAILS_ENV=production rails s -b 0.0.0.0 -p 5000
+```
 
-* Database creation
+## TODO
 
-* Database initialization
+The code is port of a v0.13 react version, so I intend to make it follow the best practices described on v15 documentation.
 
-* How to run the test suite
+- [X] Add system tests (preferable using rails [PR #26703](https://github.com/rails/rails/pull/26703))
+- [ ] Add redux and rails API
+  - [ ] REST
+  - [ ] GraphQL
 
-* Services (job queues, cache servers, search engines, etc.)
+## Thanks
 
-* Deployment instructions
-
-* ...
+Based on original work [todomvc react](https://github.com/tastejs/todomvc/tree/gh-pages/examples/react) created by [petehunt](http://github.com/petehunt/).
