@@ -25,3 +25,4 @@
 /public/packs-test
 /node_modules
 /vendor/bundle
+/.env
