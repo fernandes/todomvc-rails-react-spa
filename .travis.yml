@@ -1,0 +1,32 @@
+dist: trusty
+addons:
+  postgresql: "9.6"
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+language: ruby
+cache:
+  bundler: true
+  yarn: true
+rvm:
+ - 2.4.1
+services:
+  - redis-server
+before_install:
+  - wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -O /tmp/chromedriver.zip
+  - unzip /tmp/chromedriver.zip -d /tmp
+  - chmod 777 /tmp/chromedriver
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.0.2
+  - export PATH=$HOME/.yarn/bin:$PATH
+env:
+  - CHROME_HEADLESS=true CHROME_DRIVER_PATH=/tmp/chromedriver
+before_script:
+  - psql -c 'create database todo_test;' -U postgres
+  - yarn
+script:
+  # not using unit tests yet
+  # - bin/yarn test
+  - bin/rails test
+  - bin/rails test:system
