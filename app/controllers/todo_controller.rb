@@ -1,5 +1,6 @@
 class TodoController < ApplicationController
   helper_method :request_filter
+  caches_action :index, cache_path: { version: 1 }
 
   def index
   end

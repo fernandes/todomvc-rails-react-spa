@@ -60,4 +60,5 @@ group :development, :test do
   gem 'guard-minitest'
 end
 
+gem 'actionpack-action_caching'
 gem 'react-rails'
