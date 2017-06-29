@@ -22,10 +22,17 @@ RAILS_SERVE_STATIC_FILES=true SECRET_KEY_BASE="secretkey" RAILS_ENV=production r
 
 The code is port of a v0.13 react version, so I intend to make it follow the best practices described on v15 documentation.
 
-- [X] Add system tests (preferable using rails [PR #26703](https://github.com/rails/rails/pull/26703))
+- [X] Add system tests
 - [ ] Add redux and rails API
   - [ ] REST
   - [ ] GraphQL
+
+## Performance
+
+This project is using `react-rails` to deliver the component rendered on the server side (Server Side Rendering), also applied some techniques to make Google happy and get a 100 grade on Google PageSpeed Insights
+
+<img src="docs/page_speed_mobile.png" width="300">
+<img src="docs/page_speed_desktop.png" width="300">
 
 ## Thanks
 
