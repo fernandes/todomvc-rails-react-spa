@@ -34,6 +34,8 @@ This project is using `react-rails` to deliver the component rendered on the ser
 <img src="docs/page_speed_mobile.png" width="300">
 <img src="docs/page_speed_desktop.png" width="300">
 
+Also, the projects uses [actionpack-action_caching](https://github.com/rails/actionpack-action_caching) gem, once the idea is cache the first access so rails don't need to process the react component every single access, as the memory store is being used, no worries about increasing the version number.
+
 ## Thanks
 
 Based on original work [todomvc react](https://github.com/tastejs/todomvc/tree/gh-pages/examples/react) created by [petehunt](http://github.com/petehunt/).
