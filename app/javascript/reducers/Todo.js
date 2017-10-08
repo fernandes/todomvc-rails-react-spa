@@ -11,19 +11,10 @@ const todoInitialState = {
   results: [],
 }
 
-const Todo = (state = todoInitialState, action) => {
+export const Todo = (state = todoInitialState, action) => {
   switch (action.type) {
     case TODOS_INDEX_SUCCEEDED:
       return { ...state, results: action.todos }
-    case TODO_CREATE_SUCCEEDED:
-      return { ...state, results: [...state.results, action.todo] }
-    case TODO_UPDATE_SUCCEEDED:
-      return { ...state, results: state.results.map((todo, i) =>
-        todo.id === action.todo.id ? (Object.assign(todo, action.todo)) : todo
-      ) }
-    case TODO_DELETE_SUCCEEDED:
-      return { ...state, results: state.results.filter((todo) =>
-        todo.id !== action.id) }
     case TODOS_CLEAR_COMPLETED_SUCCEEDED:
       // return { ...state, results: action.todos }
       return { ...state, results: state.results.filter((todo) =>
@@ -33,9 +24,16 @@ const Todo = (state = todoInitialState, action) => {
       return { ...state, results: state.results.map((todo, i) =>
         Object.assign(todo, {completed: action.status})
       )}
+    case TODO_CREATE_SUCCEEDED:
+      return { ...state, results: [...state.results, action.todo] }
+    case TODO_UPDATE_SUCCEEDED:
+      return { ...state, results: state.results.map((todo, i) =>
+        todo.id === action.todo.id ? (Object.assign(todo, action.todo)) : todo
+      ) }
+    case TODO_DELETE_SUCCEEDED:
+      return { ...state, results: state.results.filter((todo) =>
+        todo.id !== action.id) }
     default:
       return state
   }
 }
-
-export default Todo;
