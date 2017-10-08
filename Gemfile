@@ -61,4 +61,10 @@ group :development, :test do
 end
 
 gem 'actionpack-action_caching'
+gem 'declarative', '0.0.9'
+gem 'devise', github: 'plataformatec/devise'
+gem 'knock', github: 'nsarno/knock'
+gem 'rack-cors'
 gem 'react-rails'
+gem 'trailblazer-endpoint', github: 'trailblazer/trailblazer-endpoint'
+gem 'trailblazer-rails'

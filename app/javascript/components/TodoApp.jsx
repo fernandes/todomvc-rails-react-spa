@@ -1,21 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import update from 'immutability-helper';
+import { connect } from 'react-redux'
 
 import Header from './Header';
 import Footer from './Footer';
 import TodoList from './TodoList';
 
-const TASKS = [
-  {id: 1, description: 'Learn React', completed: true},
-  {id: 2, description: 'Learn Redux', completed: false},
-  {id: 3, description: 'Implement', completed: false},
-];
+import { createTodo, updateTodo, deleteTodo, clearCompletedTodos, toggleStatusTodos } from '../actions'
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {tasks: TASKS, maxId: 3, filter: this.props.requestFilter}
+    this.state = {maxId: 3, filter: 'all'}
     this.addTask = this.addTask.bind(this)
     this.setCompleted = this.setCompleted.bind(this)
     this.updateDescription = this.updateDescription.bind(this)
@@ -26,57 +23,30 @@ class TodoApp extends React.Component {
   }
 
   setCompleted(id, status) {
-    const newTasks = this.state.tasks.map(task => {
-      if (task.id === id) {
-        task.completed = status;
-      }
-      return task
-    })
-    this.setState({tasks: newTasks})
+    this.props.updateTodo(id, {completed: status})
   }
 
   updateDescription(id, description) {
-    const newTasks = this.state.tasks.map(task => {
-      if (task.id === id) {
-        task.description = description;
-      }
-      return task
-    })
-    this.setState({tasks: newTasks})
+    this.props.updateTodo(id, {description: description})
   }
 
   clearCompleted(e) {
-    const newTasks = this.state.tasks.filter(task => {
-      return task.completed === false;
-    })
-    this.setState({tasks: newTasks})
+    this.props.clearCompletedTodos()
   }
 
   toggleAll(status) {
-    const toggledTasks = this.state.tasks.map(task => {
-      task.completed = status;
-      return task
-    })
-    this.setState({tasks: toggledTasks})
+    if (status === undefined) {
+      status = false
+    }
+    this.props.toggleStatusTodos(status)
   }
 
   addTask(description) {
-    const nextId = this.state.maxId + 1;
-
-    const newEntry = {
-      id: nextId,
-      description: description,
-      completed: false,
-    }
-    const newTasksArray = [].concat(this.state.tasks, newEntry)
-    this.setState({tasks: newTasksArray, maxId: nextId})
+    this.props.createTodo({description: description, completed: false})
   }
 
   destroyTask(id) {
-    const newTasks = this.state.tasks.filter(task => {
-      return task.id !== id;
-    })
-    this.setState({tasks: newTasks})
+    this.props.deleteTodo(id)
   }
 
   filterTasks(filter) {
@@ -88,11 +58,12 @@ class TodoApp extends React.Component {
   }
 
   render() {
+    const todos = this.props.todos.results;
     return (
       <div>
         <Header addTask={this.addTask} />
         <TodoList
-          tasks={this.state.tasks}
+          tasks={todos}
           setCompleted={this.setCompleted}
           toggleAll={this.toggleAll}
           destroyTask={this.destroyTask}
@@ -100,7 +71,7 @@ class TodoApp extends React.Component {
           filter={this.state.filter}
         />
         <Footer
-          tasks={this.state.tasks}
+          tasks={todos}
           clearCompleted={this.clearCompleted}
           filterTasks={this.filterTasks}
           filter={this.state.filter}
@@ -119,4 +90,33 @@ TodoApp.propTypes = {
   // lastName: PropTypes.string
 }
 
-export default TodoApp;
+function mapStateToProps (state) {
+  return {
+    todos: state.todos
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    clearCompletedTodos: () => {
+      dispatch(clearCompletedTodos())
+    },
+    toggleStatusTodos: (status) => {
+      dispatch(toggleStatusTodos(status))
+    },
+    createTodo: (todo) => {
+      dispatch(createTodo(todo))
+    },
+    updateTodo: (id, todo) => {
+      dispatch(updateTodo(id, todo))
+    },
+    deleteTodo: (id) => {
+      dispatch(deleteTodo(id))
+    },
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp);

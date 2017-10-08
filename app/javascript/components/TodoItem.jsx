@@ -3,7 +3,7 @@ import React from 'react'
 class TodoItem extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {editing: false, editingDescription: this.props.task.description}
+    this.state = {editing: false, editingDescription: this.props.task.title}
     this.handleChange = this.handleChange.bind(this)
     this.destroyTask = this.destroyTask.bind(this)
     this.handleEditDoubleClick = this.handleEditDoubleClick.bind(this)
@@ -40,22 +40,25 @@ class TodoItem extends React.Component {
   }
 
   handleEditKeyDown(e) {
+    // enter pressed
     if (e.which == 13) {
       this.handleSubmit(e)
+    // ESC pressed
     } else if (e.which == 27) {
-      this.setState({editing: false, editingDescription: this.props.task.description})
+      this.setState({editing: false, editingDescription: this.props.task.title})
     }
   }
 
   handleSubmit(e) {
     let val = this.state.editingDescription.trim();
-    if (val) {
+    if (val && val != this.props.task.title) {
       this.props.updateDescription(this.props.task.id, this.state.editingDescription)
-    } else {
+    } else if(!val) {
       this.destroyTask()
     }
-    this.setState({editing: false})
+    this.setState({editing: false, editingDescription: val})
   }
+
   classNames() {
     let classes = ""
     if (this.props.task.completed) {
@@ -78,7 +81,7 @@ class TodoItem extends React.Component {
               onChange={this.handleChange}
               checked={this.props.task.completed}
             />
-            <label onDoubleClick={this.handleEditDoubleClick}>{this.props.task.description}</label>
+          <label onDoubleClick={this.handleEditDoubleClick}>{this.props.task.title}</label>
             <button
               className="destroy"
               onClick={this.destroyTask}
@@ -89,7 +92,7 @@ class TodoItem extends React.Component {
             value={this.state.editingDescription}
             onChange={this.handleEditChange}
             onKeyDown={this.handleEditKeyDown}
-            onBlur={this.handleSubmit}
+            onBlur={this.handleBlur}
             ref="editField"
           />
         </div>
