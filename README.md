@@ -1,6 +1,6 @@
 # TodoMVC Rails React
 
-todomvc.com example built using rails 5, [webpacker](https://github.com/rails/webpacker) and react.
+todomvc.com example built using rails 5, [webpacker](https://github.com/rails/webpacker), react v16, redux and saga.
 
 ## Development
 
@@ -20,21 +20,20 @@ RAILS_SERVE_STATIC_FILES=true SECRET_KEY_BASE="secretkey" RAILS_ENV=production r
 
 ## TODO
 
-The code is port of a v0.13 react version, so I intend to make it follow the best practices described on v15 documentation.
+The code is port of a v0.13 react version, so I intend to make it follow the best practices described on ~v15~ v16 documentation.
 
 - [X] Add system tests
-- [ ] Add redux and rails API
-  - [ ] REST
+- [x] Add redux and rails API
+  - [x] REST
   - [ ] GraphQL
-
-## Performance
-
-This project is using `react-rails` to deliver the component rendered on the server side (Server Side Rendering), also applied some techniques to make Google happy and get a 100 grade on Google PageSpeed Insights
-
-<img src="docs/page_speed_mobile.png" width="300">
-<img src="docs/page_speed_desktop.png" width="300">
-
-Also, the projects uses [actionpack-action_caching](https://github.com/rails/actionpack-action_caching) gem, once the idea is cache the first access so rails don't need to process the react component every single access, as the memory store is being used, no worries about increasing the version number.
+- [ ] add tests (probably current tests are broken because of login)
+- [ ] Add Flow (or prop types?)
+- [ ] improve index fetching (pagination, next url…)
+- [ ] rehydrate JWT from localstorage
+- [ ] navigate between all/completed/active using react router
+- [ ] use humps and normalizr (good for complex APIs, but not needed on this case)
+- [ ] use styled components for todo mvc css (so we can practice and find best practices)
+- [ ] I’d like to remove (internal) state for some components and write them as functional, but not a big deal atm
 
 ## Thanks
 
