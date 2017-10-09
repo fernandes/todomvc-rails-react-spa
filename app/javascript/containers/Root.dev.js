@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import App from './App';
-import DevTools from './DevTools';
 
-export default class Root extends Component {
+class Root extends Component {
   render() {
     const { history, store } = this.props;
     return (
       <Provider store={store}>
-        <div>
-          <App history={history} />
-          <DevTools />
-        </div>
+        <App history={history} />
       </Provider>
     );
   }
 }
+
+export default Root

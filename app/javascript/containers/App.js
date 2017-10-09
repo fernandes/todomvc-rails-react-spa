@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import PrivateRoute from './PrivateRoute';
+import { Route } from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux';
+
+// Imports sorted according to Router match
 import Index from '../pages/Index'
 import LoginAction from './LoginAction';
-import Public from '../pages/Public';
-
-import { ConnectedRouter } from 'react-router-redux';
-import TodoApp from '../components/TodoApp';
-
-import {
-  Route
-} from 'react-router-dom'
+import PrivateRoute from './PrivateRoute';
+import TodoApp from './TodoApp';
 
 class App extends Component {
   render() {
     return (
       <ConnectedRouter history={this.props.history}>
         <div>
+          <h1>todos</h1>
           <Index />
-          <Route path="/public" component={Public}/>
           <Route path="/login" component={LoginAction}/>
           <PrivateRoute path="/todos" component={TodoApp}/>
         </div>

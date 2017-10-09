@@ -1,11 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import { Input } from 'rebass'
 import styled from 'styled-components'
-
-import {
-  Redirect
-} from 'react-router-dom'
 
 const customInput = field => {
   return (
@@ -27,7 +24,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { from } = this.props.location.state || { from: { pathname: '/todos' } }
     const { isAuthenticated } = this.props.auth
     const { handleSubmit, pristine, reset, submitting } = this.props
 

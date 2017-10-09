@@ -1,16 +1,15 @@
-import React from 'react';
-
-import HeaderState from '../containers/HeaderState'
+import React from 'react'
 
 import {
   Provider,
   Heading,
-} from 'rebass';
+} from 'rebass'
+
+import HeaderState from '../containers/HeaderState'
 
 const Index = () => (
   <Provider>
     <HeaderState />
-    <Heading>Home</Heading>
   </Provider>
 )
 

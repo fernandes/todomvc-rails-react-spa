@@ -1,27 +1,22 @@
-import React from 'react';
-
-import {
-  Link
-} from 'react-router-dom';
-
+import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Toolbar,
   NavLink,
   Text,
-} from 'rebass';
+} from 'rebass'
+import styled from 'styled-components'
 
 import LoginLogout from '../components/LoginLogout'
 
+const TodoBar = styled(Toolbar)`
+  background-color: rgba(0, 0, 0, 0.3);
+`
 const Header = ({auth, logout}) => (
-  <Toolbar>
-    <NavLink>
-      Todos *{auth.username}*
-    </NavLink>
-    <NavLink ml='auto' is={Link} to={'/public'} children={'Public'} />
+  <TodoBar>
     <NavLink is={Link} to={'/todos'} children={'Todos'} />
-    <Text> | </Text>
     <LoginLogout auth={auth} logout={logout} />
-  </Toolbar>
+  </TodoBar>
 )
 
 export default Header;

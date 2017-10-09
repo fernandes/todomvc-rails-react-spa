@@ -10,11 +10,11 @@ import {
 
 const LoginLogout = ({ history, auth, logout }) => (
   auth.isAuthenticated ? (
-    <NavLink onClick={() => {
+    <NavLink ml='auto' onClick={() => {
       logout(() => history.push('/'))
     }}>Logout</NavLink>
   ) : (
-    <NavLink is={Link} to={'/login'} children={'Login'} />
+    <NavLink ml='auto' is={Link} to={'/login'} children={'Login'} />
   )
 )
 

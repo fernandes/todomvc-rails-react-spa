@@ -1,18 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import update from 'immutability-helper';
-import { connect } from 'react-redux'
 
-import Header from './Header';
-import Footer from './Footer';
-import TodoList from './TodoList';
+import {
+  clearCompletedTodos,
+  toggleStatusTodos,
+  visibilityFilterTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo
+} from '../actions'
 
-import { createTodo, updateTodo, deleteTodo, clearCompletedTodos, toggleStatusTodos } from '../actions'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import TodoList from '../components/TodoList';
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {maxId: 3, filter: 'all'}
     this.addTask = this.addTask.bind(this)
     this.setCompleted = this.setCompleted.bind(this)
     this.updateDescription = this.updateDescription.bind(this)
@@ -50,15 +56,13 @@ class TodoApp extends React.Component {
   }
 
   filterTasks(filter) {
-    this.setState({filter: filter})
-    const html = document.getElementById('todo').innerHTML
-    const title = document.title
-    const urlFilter = (filter == 'all' ? '/' : '/'+filter)
-    window.history.pushState({"html": html, "pageTitle": title},"", urlFilter);
+    this.props.visibilityFilterTodos(filter)
   }
 
   render() {
-    const todos = this.props.todos.results;
+    const filter = this.props.todos.filter
+    const todos = this.props.todos.results
+
     return (
       <div>
         <Header addTask={this.addTask} />
@@ -68,13 +72,13 @@ class TodoApp extends React.Component {
           toggleAll={this.toggleAll}
           destroyTask={this.destroyTask}
           updateDescription={this.updateDescription}
-          filter={this.state.filter}
+          filter={filter}
         />
         <Footer
           tasks={todos}
           clearCompleted={this.clearCompleted}
           filterTasks={this.filterTasks}
-          filter={this.state.filter}
+          filter={filter}
         />
       </div>
     );
@@ -103,6 +107,9 @@ function mapDispatchToProps (dispatch) {
     },
     toggleStatusTodos: (status) => {
       dispatch(toggleStatusTodos(status))
+    },
+    visibilityFilterTodos: (filter) => {
+      dispatch(visibilityFilterTodos(filter))
     },
     createTodo: (todo) => {
       dispatch(createTodo(todo))

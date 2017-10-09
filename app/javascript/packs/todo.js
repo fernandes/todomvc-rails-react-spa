@@ -5,10 +5,10 @@ import "regenerator-runtime/runtime";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import Root from '../containers/Root';
 
 import { history } from '../config/configureStore'
 import configureStore from "../config/configureStore"
+import Root from '../containers/Root';
 
 const rootEl = document.getElementById('todo')
 const store = configureStore()

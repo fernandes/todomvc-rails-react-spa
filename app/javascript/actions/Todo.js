@@ -2,6 +2,7 @@ import {
   TODOS_INDEX,
   TODOS_CLEAR_COMPLETED,
   TODOS_TOGGLE_STATUS,
+  TODOS_VISIBILITY_FILTER,
   TODO_CREATE,
   TODO_UPDATE,
   TODO_DELETE,
@@ -23,6 +24,13 @@ export const toggleStatusTodos = (status) => {
   return ({
     type: TODOS_TOGGLE_STATUS,
     status: status
+  })
+}
+
+export const visibilityFilterTodos = (filter) => {
+  return ({
+    type: TODOS_VISIBILITY_FILTER,
+    filter: filter
   })
 }
 
